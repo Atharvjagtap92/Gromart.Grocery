@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GroMart | Grocery Dashboard</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #388e3c;
+      --secondary: #81c784;
+      --bg: #f4f6f5;
+      --card-bg: #ffffff;
+      --text: #2e2e2e;
+      --muted: #555555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    a { text-decoration: none; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    header .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    header svg {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+      fill: #fff;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    header .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+    header .cart-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+    header .cart-count {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: #ff6f61;
+      color: #fff;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 24px auto;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: 16px;
+      flex: 1;
+    }
+    .card .info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    .card .info p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 4px 0;
+    }
+
+    /* Action buttons aligned in one line */
+    .card .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      background: #f9f9f9;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.3s;
+      display: inline-block;
+      width: 100%; /* Makes buttons fill container */
+      text-align: center;
+    }
+
+    .update-btn {
+      background: var(--secondary);
+    }
+    .update-btn:hover {
+      background: #66bb6a;
+    }
+
+    .delete-btn {
+      background: #e53935;
+    }
+    .delete-btn:hover {
+      background: #d32f2f;
+    }
+
+    .buy-btn {
+      background: #1976d2;
+    }
+    .buy-btn:hover {
+      background: #1565c0;
+    }
+
+    .form-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin: 48px auto;
+      max-width: 600px;
+    }
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.6rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 16px 24px;
+      align-items: center;
+    }
+    .form-grid label {
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .form-grid input,
+    .form-grid textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+    .form-grid input:focus,
+    .form-grid textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    .form-grid textarea { resize: vertical; min-height: 80px; }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 24px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover { background: #2e7d32; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+      <!-- Shopping cart SVG icon -->
+      <svg viewBox="0 0 24 24"><path d="M7 4h-2l-3 9v2h3c0 1.103.897 2 2 2s2-.897 2-2h6c0 1.103.897 2 2 2s2-.897 2-2h3v-2l-3-9h-2"/><circle cx="10" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg>
+      <h1>GroMart Admin</h1>
+    </div>
+    <div class="cart-icon">
+      <!-- Cart icon with count -->
+      <svg viewBox="0 0 24 24"><path d="M7 4h-2l-3 9v2h3c0 1.103.897 2 2 2s2-.897 2-2h6c0 1.103.897 2 2 2s2-.897 2-2h3v-2l-3-9h-2"/><circle cx="10" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg>
+      <div class="cart-count">0</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Product Grid -->
+    <div class="product-grid">
+      {% for pro in prod %}
+      <div class="card">
+        {% if pro.image %}
+        <img src="{{ pro.image.url }}" alt="{{ pro.name }}">
+        {% else %}
+        <img src="https://via.placeholder.com/300x180?text=No+Image" alt="No image">
+        {% endif %}
+        <div class="info">
+          <h3>{{ pro.name }}</h3>
+          <p>Price: ₹{{ pro.price }}</p>
+          <p>Stock: {{ pro.stock }}</p>
+        </div>
+        <div class="actions">
+          <a href="{% url 'update_data' pro.id %}" class="btn update-btn">Update</a>
+          <a href="{% url 'delete_data' pro.id %}" class="btn delete-btn">Delete</a>
+          <a href="#" class="btn buy-btn">Buy</a> <!-- Renamed 'Add to Cart' to 'Buy' -->
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Add New Product Form -->
+    <section class="form-section">
+      <h2>Add New Product</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-grid">
+          <label for="id_name">Name:</label><input id="id_name" name="name" type="text" required>
+          <label for="id_price">Price (₹):</label><input id="id_price" name="price" type="number" required>
+          <label for="id_stock">Stock:</label><input id="id_stock" name="stock" type="number" required>
+          <label for="id_image">Image:</label><input id="id_image" name="image" type="file" accept="image/*">
+        </div>
+        <button type="submit" class="submit-btn">Add Product</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
